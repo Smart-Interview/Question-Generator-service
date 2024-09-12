@@ -91,7 +91,12 @@ services:
     depends_on:
       - candidatedb
 
-  qst-generation:
-    build: .
+  qst-generation-0:
+    image: qst-generation-app
+    container_name: qst-generation-01
     ports:
       - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
