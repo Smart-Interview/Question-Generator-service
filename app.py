@@ -1,4 +1,5 @@
 import os
+from flask import Flask, request, jsonify, make_response
 import json
 import re
 from dotenv import load_dotenv
@@ -162,7 +163,14 @@ def generate_questions():
         return jsonify({"error": "offer_id and test_id are required"}), 400
 
     result = process_job_description(offer_id, test_id)
-    return result
+
+    # Create a response object
+    response = make_response(result)
+    
+    # Set the content type to JSON
+    response.headers['Content-Type'] = 'application/json'
+    
+    return response
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
